@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Память о героях Великой Отечественной войны</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --primary: #7d0000;
+        --primary-light: #a52a2a;
+        --secondary: #1a2639;
+        --accent: #d4af37;
+        --light: #f5f5f5;
+        --dark: #222222;
+        --white: #ffffff;
+        --gray: #555555;
+        --light-gray: #e0e0e0;
+      }
+
+      body {
+        font-family: 'Roboto', Arial, sans-serif;
+        line-height: 1.6;
+        color: var(--dark);
+        background-color: var(--light);
+        background-image: url('data:image/svg+xml;utf8,<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="%23f5f5f5"/><path d="M0 0L100 100M100 0L0 100" stroke="%23e5e5e5" stroke-width="0.5"/></svg>');
+        background-size: 20px 20px;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+        position: relative;
+        z-index: 1;
+      }
+
+      /* Шапка */
+      header {
+        background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+          url('https://sjc.microlink.io/EpDNhsSzE38xJhJC4ruByrrakaInq5HveWdvvrD8nCnxPrzx07EqAOWZw4si-kazNzJiv8bA8OBoQU9kJSKUYQ.jpeg')
+            center/cover;
+        color: var(--white);
+        text-align: center;
+        padding: 150px 20px 100px;
+        position: relative;
+        box-shadow: 0 5px 25px rgba(0, 0, 0, 0.3);
+        clip-path: polygon(0 0, 100% 0, 100% 85%, 50% 100%, 0 85%);
+      }
+
+      header::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 5px;
+        background: linear-gradient(to right, var(--primary), var(--accent), var(--primary));
+      }
+
+      header h1 {
+        font-size: 3.5rem;
+        margin-bottom: 20px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        position: relative;
+        display: inline-block;
+        color: var(--white);
+        padding: 0 20px;
+      }
+
+      header h1::after {
+        content: '';
+        display: block;
+        width: 80%;
+        height: 4px;
+        background: linear-gradient(to right, transparent, var(--accent), transparent);
+        margin: 15px auto 0;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      header p {
+        font-size: 1.4rem;
+        max-width: 800px;
+        margin: 0 auto;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        background-color: rgba(0, 0, 0, 0.3);
+        padding: 15px;
+        border-radius: 10px;
+        display: inline-block;
+      }
+
+      /* Разделы */
+      section {
+        padding: 80px 0;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .section-title {
+        text-align: center;
+        margin-bottom: 50px;
+        font-size: 2.5rem;
+        color: var(--primary);
+        position: relative;
+        padding-bottom: 15px;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+      }
+
+      .section-title::after {
+        content: '';
+        display: block;
+        width: 100px;
+        height: 3px;
+        background: linear-gradient(to right, var(--primary-light), var(--accent));
+        margin: 15px auto 0;
+        border-radius: 3px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      /* О войне */
+      .about {
+        background-color: var(--white);
+        position: relative;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+        z-index: 1;
+      }
+
+      .about::before {
+        content: '';
+        position: absolute;
+        top: -50px;
+        left: 0;
+        right: 0;
+        height: 50px;
+        background: var(--white);
+        clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+        z-index: 2;
+      }
+
+      .about-content {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        gap: 30px;
+        position: relative;
+        z-index: 1;
+      }
+
+      .about-text {
+        flex: 1;
+        min-width: 300px;
+        padding: 30px;
+        font-size: 1.1rem;
+        line-height: 1.8;
+        background-color: rgba(255, 255, 255, 0.9);
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        border-left: 4px solid var(--primary);
+      }
+
+      .about-text p {
+        margin-bottom: 20px;
+        text-align: justify;
+      }
+
+      .about-image {
+        flex: 1;
+        min-width: 300px;
+        padding: 20px;
+        text-align: center;
+      }
+
+      .about-image img {
+        max-width: 100%;
+        border-radius: 10px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        border: 5px solid var(--white);
+        outline: 2px solid var(--primary-light);
+        transform: rotate(-2deg);
+        transition: transform 0.3s ease;
+      }
+
+      .about-image img:hover {
+        transform: rotate(0) scale(1.02);
+      }
+
+      /* Хронология */
+      .timeline {
+        background-color: var(--light);
+        position: relative;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+      }
+
+      .timeline::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 5px;
+        background: linear-gradient(to right, var(--primary), var(--accent), var(--primary));
+        z-index: 2;
+      }
+
+      .timeline-container {
+        position: relative;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .timeline-container::after {
+        content: '';
+        position: absolute;
+        width: 3px;
+        background: linear-gradient(to bottom, var(--primary), var(--accent));
+        top: 0;
+        bottom: 0;
+        left: 50%;
+        margin-left: -1.5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .timeline-item {
+        padding: 10px 40px;
+        position: relative;
+        width: 50%;
+        box-sizing: border-box;
+        margin-bottom: 30px;
+      }
+
+      .timeline-item::after {
+        content: '';
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        background-color: var(--white);
+        border: 3px solid var(--primary);
+        border-radius: 50%;
+        top: 15px;
+        z-index: 3;
+        box-shadow: 0 0 0 4px rgba(125, 0, 0, 0.1);
+      }
+
+      .left {
+        left: 0;
+        text-align: right;
+      }
+
+      .right {
+        left: 50%;
+        text-align: left;
+      }
+
+      .left::after {
+        right: -10px;
+      }
+
+      .right::after {
+        left: -10px;
+      }
+
+      .timeline-content {
+        padding: 20px;
+        background-color: var(--white);
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        border-left: 3px solid var(--primary);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        position: relative;
+      }
+
+      .right .timeline-content {
+        border-left: none;
+        border-right: 3px solid var(--primary);
+      }
+
+      .timeline-content:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+      }
+
+      .timeline-content h3 {
+        margin-bottom: 10px;
+        color: var(--primary);
+        font-size: 1.4rem;
+        text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.05);
+      }
+
+      .timeline-content p {
+        line-height: 1.7;
+      }
+
+      /* Карта */
+      .map-section {
+        background-color: var(--white);
+        position: relative;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+      }
+
+      .map-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 5px;
+        background: linear-gradient(to right, var(--primary), var(--accent), var(--primary));
+        z-index: 2;
+      }
+
+      .map-container {
+        width: 100%;
+        height: 600px;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        border: 5px solid var(--white);
+        outline: 2px solid var(--primary-light);
+        position: relative;
+      }
+
+      /* Герои */
+      .heroes {
+        background-color: var(--light);
+        position: relative;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+      }
+
+      .heroes::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 5px;
+        background: linear-gradient(to right, var(--primary), var(--accent), var(--primary));
+        z-index: 2;
+      }
+
+      .heroes-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 30px;
+        margin-bottom: 50px;
+      }
+
+      .hero-card {
+        background-color: var(--white);
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        position: relative;
+      }
+
+      .hero-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 5px;
+        background: linear-gradient(to right, var(--primary), var(--accent));
+        z-index: 1;
+      }
+
+      .hero-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      }
+
+      .hero-image {
+        width: 100%;
+        height: 300px;
+        object-fit: cover;
+        border-bottom: 3px solid var(--primary-light);
+        transition: transform 0.5s ease;
+        position: relative;
+        filter: grayscale(30%);
+      }
+
+      .hero-card:hover .hero-image {
+        transform: scale(1.05);
+        filter: grayscale(0%);
+      }
+
+      .hero-info {
+        padding: 25px;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        background: linear-gradient(to bottom, #fff, #f9f9f9);
+        position: relative;
+      }
+
+      .hero-info h3 {
+        margin-bottom: 15px;
+        color: var(--primary);
+        font-size: 1.5rem;
+        position: relative;
+        padding-bottom: 10px;
+        z-index: 1;
+      }
+
+      .hero-info h3::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 50px;
+        height: 3px;
+        background: linear-gradient(to right, var(--primary), var(--accent));
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+      }
+
+      .hero-info p {
+        flex-grow: 1;
+        line-height: 1.7;
+        color: var(--gray);
+        position: relative;
+        z-index: 1;
+      }
+
+      .kazakh-heroes-title {
+        text-align: center;
+        margin: 50px 0 40px;
+        font-size: 2rem;
+        color: var(--primary);
+        position: relative;
+        display: inline-block;
+        padding: 0 30px 15px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: rgba(255, 255, 255, 0.8);
+        border-radius: 50px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      }
+
+      .kazakh-heroes-title::before,
+      .kazakh-heroes-title::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        width: 60px;
+        height: 2px;
+        background: linear-gradient(to right, var(--primary), var(--accent));
+      }
+
+      .kazakh-heroes-title::before {
+        left: -70px;
+      }
+
+      .kazakh-heroes-title::after {
+        right: -70px;
+      }
+
+      /* Подвал */
+      footer {
+        background-color: var(--secondary);
+        color: var(--white);
+        text-align: center;
+        padding: 50px 0 30px;
+        position: relative;
+        box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.1);
+        clip-path: polygon(0 15%, 50% 0, 100% 15%, 100% 100%, 0 100%);
+        padding-top: 100px;
+      }
+
+      footer::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 5px;
+        background: linear-gradient(to right, var(--primary), var(--accent), var(--primary));
+      }
+
+      .footer-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .social-links {
+        margin: 20px 0;
+      }
+
+      .social-links a {
+        color: var(--white);
+        margin: 0 15px;
+        font-size: 1.5rem;
+        transition: all 0.3s ease;
+        display: inline-block;
+        padding: 10px;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.1);
+        width: 50px;
+        height: 50px;
+        line-height: 30px;
+        text-align: center;
+      }
+
+      .social-links a:hover {
+        color: var(--accent);
+        background-color: rgba(255, 255, 255, 0.2);
+        transform: translateY(-5px);
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+      }
+
+      .copyright {
+        margin-top: 20px;
+        font-size: 0.9rem;
+        opacity: 0.8;
+      }
+
+      /* Кнопка прокрутки вверх */
+      .scroll-top {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        width: 50px;
+        height: 50px;
+        background-color: var(--primary);
+        color: var(--white);
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.5rem;
+        cursor: pointer;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        opacity: 0;
+        transition: all 0.3s ease;
+        z-index: 1000;
+      }
+
+      .scroll-top.visible {
+        opacity: 1;
+      }
+
+      .scroll-top:hover {
+        background-color: var(--accent);
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      }
+
+      /* Декоративные элементы */
+      .memorial-flame {
+        position: absolute;
+        width: 40px;
+        height: 60px;
+        background: radial-gradient(ellipse at center, var(--primary) 0%, transparent 70%);
+        opacity: 0.1;
+        z-index: 0;
+        filter: blur(5px);
+        animation: flicker 3s infinite alternate;
+      }
+
+      @keyframes flicker {
+        0%,
+        100% {
+          opacity: 0.1;
+          transform: scale(1);
+        }
+        50% {
+          opacity: 0.15;
+          transform: scale(1.05);
+        }
+      }
+
+      .flame-1 {
+        top: 10%;
+        left: 5%;
+      }
+
+      .flame-2 {
+        top: 30%;
+        right: 8%;
+      }
+
+      .flame-3 {
+        bottom: 15%;
+        left: 10%;
+      }
+
+      .flame-4 {
+        bottom: 25%;
+        right: 5%;
+      }
+
+      .hero-badge {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background-color: var(--primary);
+        color: var(--white);
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-size: 0.8rem;
+        font-weight: bold;
+        z-index: 2;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+
+      /* Адаптивность */
+      @media screen and (max-width: 768px) {
+        header {
+          padding: 100px 20px 80px;
+          clip-path: polygon(0 0, 100% 0, 100% 90%, 50% 100%, 0 90%);
+        }
+
+        header h1 {
+          font-size: 2.2rem;
+        }
+
+        header p {
+          font-size: 1rem;
+        }
+
+        .section-title {
+          font-size: 2rem;
+        }
+
+        .timeline-container::after {
+          left: 31px;
+        }
+
+        .timeline-item {
+          width: 100%;
+          padding-left: 70px;
+          padding-right: 25px;
+        }
+
+        .timeline-item::after {
+          left: 21px;
+        }
+
+        .left,
+        .right {
+          left: 0;
+          text-align: left;
+        }
+
+        .left::after,
+        .right::after {
+          left: 21px;
+        }
+
+        .left .timeline-content,
+        .right .timeline-content {
+          border-right: none;
+          border-left: 3px solid var(--primary);
+        }
+
+        .kazakh-heroes-title::before,
+        .kazakh-heroes-title::after {
+          display: none;
+        }
+
+        footer {
+          clip-path: polygon(0 5%, 50% 0, 100% 5%, 100% 100%, 0 100%);
+          padding-top: 60px;
+        }
+      }
+
+      /* Анимации */
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .animated {
+        animation: fadeIn 0.8s ease forwards;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="memorial-flame flame-1"></div>
+    <div class="memorial-flame flame-2"></div>
+    <div class="memorial-flame flame-3"></div>
+    <div class="memorial-flame flame-4"></div>
+
+    <header>
+      <div class="container">
+        <h1>Великая Отечественная война 1941-1945</h1>
+        <p>Память о подвиге народа, изменившем ход мировой истории</p>
+      </div>
+    </header>
+
+    <section class="about" id="about">
+      <div class="container">
+        <h2 class="section-title">О Великой Отечественной войне</h2>
+        <div class="about-content">
+          <div class="about-text">
+            <p>
+              Великая Отечественная война (1941-1945) - самая кровопролитная война в истории нашей страны и одна из
+              самых жестоких войн в истории человечества. Она началась 22 июня 1941 года, когда нацистская Германия
+              вероломно напала на Советский Союз.
+            </p>
+            <p>
+              В ходе этой войны советский народ проявил беспримерное мужество, стойкость и героизм. Ценой огромных жертв
+              и усилий была одержана победа над фашизмом, которая имела решающее значение для исхода Второй мировой
+              войны.
+            </p>
+            <p>
+              Великая Отечественная война унесла жизни около 27 миллионов советских граждан. Память о подвиге народа и о
+              тех, кто отдал свои жизни за свободу и независимость Родины, навсегда останется в наших сердцах.
+            </p>
+          </div>
+          <div class="about-image">
+            <img
+              src="https://avatars.mds.yandex.net/get-entity_search/1244778/1132872023/S600xU_2x"
+              alt="Фотография военных лет"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="timeline" id="timeline">
+      <div class="container">
+        <h2 class="section-title">Ключевые события</h2>
+        <div class="timeline-container">
+          <div class="timeline-item left">
+            <div class="timeline-content">
+              <h3>22 июня 1941</h3>
+              <p>Начало Великой Отечественной войны. Вторжение немецко-фашистских войск на территорию СССР.</p>
+            </div>
+          </div>
+          <div class="timeline-item right">
+            <div class="timeline-content">
+              <h3>30 сентября 1941 - 20 апреля 1942</h3>
+              <p>Битва за Москву. Первое крупное поражение немецкой армии во Второй мировой войне.</p>
+            </div>
+          </div>
+          <div class="timeline-item left">
+            <div class="timeline-content">
+              <h3>17 июля 1942 - 2 февраля 1943</h3>
+              <p>Сталинградская битва. Коренной перелом в ходе войны.</p>
+            </div>
+          </div>
+          <div class="timeline-item right">
+            <div class="timeline-content">
+              <h3>5 июля - 23 августа 1943</h3>
+              <p>Курская битва. Крупнейшее танковое сражение в истории.</p>
+            </div>
+          </div>
+          <div class="timeline-item left">
+            <div class="timeline-content">
+              <h3>6 июня 1944</h3>
+              <p>Открытие Второго фронта в Европе. Высадка союзников в Нормандии.</p>
+            </div>
+          </div>
+          <div class="timeline-item right">
+            <div class="timeline-content">
+              <h3>Январь - май 1945</h3>
+              <p>Берлинская операция. Штурм Берлина и капитуляция Германии.</p>
+            </div>
+          </div>
+          <div class="timeline-item left">
+            <div class="timeline-content">
+              <h3>9 мая 1945</h3>
+              <p>День Победы. Окончание Великой Отечественной войны.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="map-section" id="map">
+      <div class="container">
+        <h2 class="section-title">Карта памятников и мемориалов</h2>
+        <p style="text-align: center; margin-bottom: 30px">
+          На этой карте отмечены места памятников и мемориалов в городе Уральск.
+        </p>
+        <div class="map-container">
+          <iframe
+            src="https://yandex.ru/map-widget/v1/?um=constructor%3A24fbb1fe5fc5d118915669f08833c2a6e41cbeb27b9e0bc7ddb1e05618fc2b42&amp;source=constructor"
+            width="100%"
+            height="600"
+            frameborder="0"
+          ></iframe>
+        </div>
+      </div>
+    </section>
+
+    <section class="heroes" id="heroes">
+      <div class="container">
+        <h2 class="section-title">Герои войны</h2>
+        <div class="heroes-grid">
+          <div class="hero-card">
+            <div class="hero-badge">Маршал</div>
+            <img
+              src="https://avatars.mds.yandex.net/get-entity_search/5393129/1012491783/S600xU_2x"
+              alt="Георгий Жуков"
+              class="hero-image"
+            />
+            <div class="hero-info">
+              <h3>Георгий Жуков</h3>
+              <p>
+                Маршал Советского Союза, четырежды Герой Советского Союза. Командовал фронтами в крупнейших сражениях
+                войны.
+              </p>
+            </div>
+          </div>
+          <div class="hero-card">
+            <div class="hero-badge">Маршал</div>
+            <img
+              src="https://avatars.mds.yandex.net/get-entity_search/5100341/1020801388/S600xU_2x"
+              alt="Константин Рокоссовский"
+              class="hero-image"
+            />
+            <div class="hero-info">
+              <h3>Константин Рокоссовский</h3>
+              <p>
+                Маршал Советского Союза, дважды Герой Советского Союза. Командовал войсками на ключевых направлениях.
+              </p>
+            </div>
+          </div>
+          <div class="hero-card">
+            <div class="hero-badge">Герой СССР</div>
+            <img
+              src="https://avatars.mds.yandex.net/get-entity_search/5505928/778258436/S600xU_2x"
+              alt="Александр Матросов"
+              class="hero-image"
+            />
+            <div class="hero-info">
+              <h3>Александр Матросов</h3>
+              <p>
+                Герой Советского Союза. Закрыл своим телом амбразуру вражеского дзота, обеспечив успех наступления
+                своего подразделения.
+              </p>
+            </div>
+          </div>
+          <div class="hero-card">
+            <div class="hero-badge">Герой СССР</div>
+            <img
+              src="https://avatars.mds.yandex.net/get-entity_search/113983/952452470/S600xU_2x"
+              alt="Зоя Космодемьянская"
+              class="hero-image"
+            />
+            <div class="hero-info">
+              <h3>Зоя Космодемьянская</h3>
+              <p>
+                Первая женщина, удостоенная звания Героя Советского Союза (посмертно) во время Великой Отечественной
+                войны.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <h3 class="kazakh-heroes-title">Герои Казахстана</h3>
+        <div class="heroes-grid">
+          <div class="hero-card">
+            <div class="hero-badge">Герой СССР</div>
+            <img
+              src="https://avatars.mds.yandex.net/get-entity_search/5674964/1132999210/S600xU_2x"
+              alt="Бауыржан Момышулы"
+              class="hero-image"
+            />
+            <div class="hero-info">
+              <h3>Бауыржан Момышулы</h3>
+              <p>
+                Легендарный казахский военачальник, писатель, участник обороны Москвы. Герой Советского Союза
+                (посмертно). Командовал батальоном и полком в составе Панфиловской дивизии.
+              </p>
+            </div>
+          </div>
+          <div class="hero-card">
+            <div class="hero-badge">Герой СССР</div>
+            <img
+              src="https://avatars.mds.yandex.net/get-entity_search/1245366/1130834324/S600xU_2x"
+              alt="Алия Молдагулова"
+              class="hero-image"
+            />
+            <div class="hero-info">
+              <h3>Алия Молдагулова</h3>
+              <p>
+                Казахская девушка-снайпер, Герой Советского Союза. Уничтожила более 78 солдат и офицеров противника.
+                Погибла в бою в январе 1944 года.
+              </p>
+            </div>
+          </div>
+          <div class="hero-card">
+            <div class="hero-badge">Герой СССР</div>
+            <img
+              src="https://avatars.mds.yandex.net/get-entity_search/2331707/1133023221/S600xU_2x"
+              alt="Маншук Маметова"
+              class="hero-image"
+            />
+            <div class="hero-info">
+              <h3>Маншук Маметова</h3>
+              <p>
+                Первая казашка, удостоенная звания Героя Советского Союза. Пулеметчица, героически погибла в бою,
+                прикрывая отход своих товарищей.
+              </p>
+            </div>
+          </div>
+          <div class="hero-card">
+            <div class="hero-badge">Дважды Герой СССР</div>
+            <img
+              src="https://avatars.mds.yandex.net/get-entity_search/1220991/993269542/S600xU_2x"
+              alt="Талгат Бегельдинов"
+              class="hero-image"
+            />
+            <div class="hero-info">
+              <h3>Талгат Бегельдинов</h3>
+              <p>
+                Дважды Герой Советского Союза, летчик-штурмовик. Совершил 305 боевых вылетов, участвовал в штурме
+                Берлина.
+              </p>
+            </div>
+          </div>
+          <div class="hero-card">
+            <div class="hero-badge">Герой СССР</div>
+            <img
+              src="https://sun9-43.userapi.com/impg/xvB91EgRo4NUwAneigLA-Lia9vWfwQhGP8n_2Q/FBSj56oOtbQ.jpg?size=320x240&quality=95&keep_aspect_ratio=1&background=000000&sign=ac975c06fce39b630ea1e45a4b040200&type=video_thumb"
+              alt="Сагадат Нурмагамбетов"
+              class="hero-image"
+            />
+            <div class="hero-info">
+              <h3>Сагадат Нурмагамбетов</h3>
+              <p>
+                Герой Советского Союза, первый министр обороны независимого Казахстана. Участвовал в штурме Берлина.
+              </p>
+            </div>
+          </div>
+          <div class="hero-card">
+            <div class="hero-badge">Народный Герой</div>
+            <img
+              src="https://cdn.profile.ru/wp-content/uploads/2023/10/devushka.jpg"
+              alt="Хиуаз Доспанова"
+              class="hero-image"
+            />
+            <div class="hero-info">
+              <h3>Хиуаз Доспанова</h3>
+              <p>
+                Единственная казашка-летчица в годы войны. Служила в знаменитом женском авиаполку "Ночные ведьмы".
+                Народный Герой Казахстана.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="container">
+        <div class="footer-content">
+          <div class="social-links">ПРЕСНОВ АЛЕКСЕЙ</div>
+          <div class="copyright">
+            <p>© 2025 Память о Великой Отечественной войне. Все права защищены.</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <div class="scroll-top" id="scrollTop">↑</div>
+
+    <script>
+      // Кнопка прокрутки вверх
+      const scrollTopBtn = document.getElementById('scrollTop');
+
+      window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 300) {
+          scrollTopBtn.classList.add('visible');
+        } else {
+          scrollTopBtn.classList.remove('visible');
+        }
+      });
+
+      scrollTopBtn.addEventListener('click', () => {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth',
+        });
+      });
+
+      // Плавная прокрутка к разделам при клике на ссылки меню
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+
+          const targetId = this.getAttribute('href');
+          const targetElement = document.querySelector(targetId);
+
+          if (targetElement) {
+            window.scrollTo({
+              top: targetElement.offsetTop,
+              behavior: 'smooth',
+            });
+          }
+        });
+      });
+
+      // Анимация появления элементов при прокрутке
+      function isElementInViewport(el) {
+        const rect = el.getBoundingClientRect();
+        return (
+          rect.top >= 0 &&
+          rect.left >= 0 &&
+          rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+          rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+        );
+      }
+
+      function handleScrollAnimation() {
+        const elements = document.querySelectorAll('.section-title, .about-content, .timeline-item, .hero-card');
+
+        elements.forEach((element) => {
+          if (isElementInViewport(element) && !element.classList.contains('animated')) {
+            element.classList.add('animated');
+            element.style.opacity = '1';
+            element.style.transform = 'translateY(0)';
+          }
+        });
+      }
+
+      // Инициализация стилей для анимации
+      document.querySelectorAll('.section-title, .about-content, .timeline-item, .hero-card').forEach((element) => {
+        element.style.opacity = '0';
+        element.style.transform = 'translateY(20px)';
+        element.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+      });
+
+      window.addEventListener('scroll', handleScrollAnimation);
+      window.addEventListener('load', handleScrollAnimation);
+
+      // Анимация для декоративных элементов
+      const flames = document.querySelectorAll('.memorial-flame');
+      flames.forEach((flame) => {
+        setInterval(() => {
+          flame.style.opacity = (Math.random() * 0.1 + 0.05).toFixed(2);
+        }, 2000);
+      });
+    </script>
+  </body>
+</html>
