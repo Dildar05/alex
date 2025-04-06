@@ -1012,7 +1012,7 @@
       }
 
       function handleScrollAnimation() {
-        const elements = document.querySelectorAll('.section-title, .about-content, .timeline-item, .hero-card');
+        const elements = document.querySelectorAll('.section-title,  .timeline-item, .hero-card');
 
         elements.forEach((element) => {
           if (isElementInViewport(element) && !element.classList.contains('animated')) {
@@ -1024,7 +1024,7 @@
       }
 
       // Инициализация стилей для анимации
-      document.querySelectorAll('.section-title, .about-content, .timeline-item, .hero-card').forEach((element) => {
+      document.querySelectorAll('.section-title, .timeline-item, .hero-card').forEach((element) => {
         element.style.opacity = '0';
         element.style.transform = 'translateY(20px)';
         element.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
